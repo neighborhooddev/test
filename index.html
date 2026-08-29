@@ -706,16 +706,30 @@
             .timeline-box.right { left: 0; }
             .timeline-dot-node { left: -4px !important; }
         }
-
-        /* ================================
-   PDF / PRINT MODE
-================================ */
+        /* =====================================================
+   PDF / PRINT PORTFOLIO - A4 PROFESSIONAL
+===================================================== */
 
 @media print {
 
     @page {
         size: A4 portrait;
-        margin: 12mm;
+        margin: 0;
+    }
+
+    html,
+    body {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        padding: 0;
+        background: #F7F4EB !important;
+        color: #1A1A1A !important;
+    }
+
+    body {
+        font-size: 10pt;
+        line-height: 1.45;
     }
 
     * {
@@ -723,67 +737,271 @@
         print-color-adjust: exact !important;
     }
 
-    html,
-    body {
-        width: 210mm;
-        background: #F7F4EB !important;
-    }
+    /* =========================
+       HIDE WEBSITE NAVIGATION
+    ========================= */
 
     header,
     .mobile-overlay,
-    .btn-cv,
     .mobile-toggle {
         display: none !important;
     }
 
-    .wrapper {
-        width: 100%;
-        max-width: none;
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
+
+    #portfolio-content {
+        width: 210mm;
         margin: 0;
         padding: 0;
     }
 
-    #portfolio-content {
+    .wrapper {
         width: 100%;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 15mm !important;
     }
 
-    /* Matikan animasi */
+    /* =========================
+       AOS
+    ========================= */
+
     [data-aos] {
         opacity: 1 !important;
         transform: none !important;
     }
 
-    /* Jangan memotong card */
-    .hl-card,
-    .exp-detail-card,
-    .skill-box,
-    .timeline-box,
+    /* =========================
+       PAGE 1 — HERO
+    ========================= */
+
+    .hero-grid {
+        min-height: 277mm;
+        display: grid !important;
+        grid-template-columns: 1.1fr 0.9fr !important;
+        gap: 10mm !important;
+        align-items: center !important;
+        margin-bottom: 0 !important;
+
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .hero-main-title {
+        font-size: 42pt !important;
+        line-height: 0.95 !important;
+    }
+
+    .hero-role {
+        font-size: 12pt !important;
+    }
+
+    .hero-bio {
+        font-size: 9.5pt !important;
+    }
+
+    .badge-list {
+        margin-bottom: 12px !important;
+    }
+
+    .badge-item {
+        font-size: 7pt !important;
+    }
+
+    .hero-ctas {
+        display: none !important;
+    }
+
     .profile-card {
+        padding: 5mm !important;
         break-inside: avoid;
         page-break-inside: avoid;
     }
 
-    /* Beri ruang antar section */
+    .photo-box {
+        height: 105mm !important;
+    }
+
+    /* =========================
+       SECTION SPACING
+    ========================= */
+
     section {
-        break-inside: auto;
-        page-break-inside: auto;
+        margin-bottom: 15mm;
     }
 
-    /* Footer tetap ikut */
+    .heading-serif {
+        font-size: 25pt !important;
+        margin-bottom: 10mm !important;
+    }
+
+    .section-tag {
+        font-size: 7pt !important;
+    }
+
+    /* =========================
+       PAGE 2 — HIGHLIGHTS
+    ========================= */
+
+    .highlights-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 5mm !important;
+    }
+
+    .hl-card {
+        padding: 5mm !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Timeline after highlights */
+
+    .timeline {
+        max-width: 100% !important;
+        margin: 10mm 0 0 !important;
+    }
+
+    .timeline::before {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .timeline-box {
+        width: 50% !important;
+        margin-bottom: 10mm !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .timeline-box.left {
+        left: 0 !important;
+        padding-right: 10mm !important;
+        padding-left: 0 !important;
+        text-align: right !important;
+    }
+
+    .timeline-box.right {
+        left: 50% !important;
+        padding-left: 10mm !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+    }
+
+    /* =========================
+       EXPERIENCE CARDS
+    ========================= */
+
+    .exp-detail-card {
+        padding: 6mm !important;
+        margin-bottom: 6mm !important;
+
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .company-name {
+        font-size: 18pt !important;
+    }
+
+    .job-title {
+        font-size: 9pt !important;
+        margin-bottom: 5mm !important;
+    }
+
+    .exp-two-col {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8mm !important;
+    }
+
+    .exp-two-col li {
+        font-size: 8pt !important;
+        margin-bottom: 4px !important;
+    }
+
+    .stat-badge span {
+        font-size: 8.5pt !important;
+    }
+
+    .stat-badge label {
+        font-size: 6.5pt !important;
+    }
+
+    /* =========================
+       SKILLS
+    ========================= */
+
+    .grid-3-col {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 4mm !important;
+    }
+
+    .grid-2-col {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4mm !important;
+    }
+
+    .skill-box {
+        padding: 5mm !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .skill-box h4 {
+        font-size: 9pt !important;
+    }
+
+    .tag-pill {
+        font-size: 6.5pt !important;
+        padding: 2px 6px !important;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
     .dark-footer {
-        margin-top: 40px;
-        break-before: auto;
-        page-break-before: auto;
+        margin-top: 0 !important;
+        padding: 15mm !important;
+
+        break-before: page;
+        page-break-before: always;
     }
 
-    /* Hilangkan efek hover */
-    .profile-card:hover,
-    .hl-card:hover,
-    .exp-detail-card:hover {
-        transform: none !important;
+    .footer-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4mm !important;
+    }
+
+    .contact-link-card {
+        padding: 5mm !important;
+    }
+
+    .footer-credits {
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+
+    /* =========================
+       DON'T CUT IMPORTANT CARDS
+    ========================= */
+
+    .hl-card,
+    .profile-card,
+    .exp-detail-card,
+    .skill-box,
+    .timeline-box {
+        break-inside: avoid;
+        page-break-inside: avoid;
     }
 }
-    </style>
+ </style>
 </head>
 <body>
 
@@ -816,8 +1034,8 @@
         </nav>
         <div class="header-actions">
             <button class="btn-lang"><i class="fa-solid fa-globe"></i> EN</button>
-            <a href="javascript:void(0)" onclick="downloadPortfolio()" class="btn-cv">
-            <i class="fa-solid fa-file-pdf"></i> Unduh Portfolio</a>
+            <a href="javascript:void(0)"onclick="downloadPortfolio()"class="btn-cv">
+            <i class="fa-solid fa-file-pdf"></i>Unduh Portfolio</a>
             <button class="mobile-toggle" id="openOverlay"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
@@ -841,8 +1059,11 @@
                 </p>
                 <div class="hero-ctas">
                     <a href="#pengalaman" class="btn-outline-dark">Lihat Pengalaman Saya <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    <a href="javascript:void(0)" onclick="downloadPortfolio()" class="btn-cv">
-                    <i class="fa-solid fa-file-pdf"></i> Unduh Portfolio</a>
+                    <a href="javascript:void(0)"onclick="downloadPortfolio()"class="btn-cv">
+                    <i class="fa-solid fa-file-pdf"></i>
+    Unduh Portfolio
+
+</a>
                 </div>
             </div>
 
