@@ -816,8 +816,8 @@
         </nav>
         <div class="header-actions">
             <button class="btn-lang"><i class="fa-solid fa-globe"></i> EN</button>
-            <button onclick="downloadPortfolio()" class="btn-cv">
-            <i class="fa-solid fa-file-pdf"></i> Unduh Portfolio</button>
+            <a href="javascript:void(0)" onclick="downloadPortfolio()" class="btn-cv">
+            <i class="fa-solid fa-file-pdf"></i> Unduh Portfolio</a>
             <button class="mobile-toggle" id="openOverlay"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
@@ -841,8 +841,8 @@
                 </p>
                 <div class="hero-ctas">
                     <a href="#pengalaman" class="btn-outline-dark">Lihat Pengalaman Saya <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    <button onclick="downloadPortfolio()" class="btn-cv">
-                    <i class="fa-solid fa-file-pdf"></i> Unduh Portfolio</button>
+                    <a href="javascript:void(0)" onclick="downloadPortfolio()" class="btn-cv">
+                    <i class="fa-solid fa-file-pdf"></i> Unduh Portfolio</a>
                 </div>
             </div>
 
@@ -1162,5 +1162,27 @@
         closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
         menuItems.forEach(item => item.addEventListener('click', () => overlay.classList.remove('active')));
     </script> 
+    <script>
+function downloadPortfolio() {
+
+    const overlay = document.getElementById('mobileOverlay');
+
+    // Tutup menu mobile
+    if (overlay) {
+        overlay.classList.remove('active');
+    }
+
+    // Matikan animasi AOS untuk PDF
+    document.querySelectorAll('[data-aos]').forEach(function(element) {
+        element.style.opacity = '1';
+        element.style.transform = 'none';
+    });
+
+    // Tunggu layout selesai
+    setTimeout(function() {
+        window.print();
+    }, 300);
+}
+</script>
 </body>
 </html>
