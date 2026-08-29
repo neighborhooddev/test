@@ -1065,7 +1065,7 @@
     </div>
   
     <!-- PDF Generator -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -1086,60 +1086,100 @@
         menuItems.forEach(item => item.addEventListener('click', () => overlay.classList.remove('active')));
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <script>
-    async function downloadPortfolio() {
-        const element = document.getElementById('portfolio-content');
+async function downloadPortfolio() {
+    const element = document.getElementById('portfolio-content');
 
-        // Pastikan semua gambar sudah selesai dimuat
-        const images = element.querySelectorAll('img');
+    if (!element) {
+        alert('Portfolio tidak ditemukan.');
+        return;
+    }
 
-        await Promise.all(
-            Array.from(images).map(img => {
-                if (img.complete) return Promise.resolve();
+    // Sembunyikan elemen yang tidak perlu masuk PDF
+    const header = document.querySelector('header');
+    const mobileOverlay = document.getElementById('mobileOverlay');
 
-                return new Promise(resolve => {
-                    img.onload = resolve;
-                    img.onerror = resolve;
-                });
-            })
-        );
+    if (header) header.style.display = 'none';
+    if (mobileOverlay) mobileOverlay.style.display = 'none';
 
-        const options = {
-            margin: [10, 10, 10, 10],
+    // Matikan animasi AOS agar semua konten terlihat
+    element.querySelectorAll('[data-aos]').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+    });
 
-            filename: 'Muhammad-Rizal-Portfolio.pdf',
+    // Tunggu gambar selesai dimuat
+    const images = element.querySelectorAll('img');
 
-            image: {
-                type: 'jpeg',
-                quality: 0.95
-            },
+    await Promise.all(
+        [...images].map(img => {
+            if (img.complete) return Promise.resolve();
 
-            html2canvas: {
-                scale: 2,
-                useCORS: true,
-                allowTaint: false,
-                backgroundColor: '#F7F4EB',
-                scrollX: 0,
-                scrollY: 0,
-                windowWidth: element.scrollWidth
-            },
+            return new Promise(resolve => {
+                img.onload = resolve;
+                img.onerror = resolve;
+            });
+        })
+    );
 
-            jsPDF: {
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait'
-            },
+    // Sedikit waktu untuk memastikan layout selesai
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-            pagebreak: {
-                mode: ['css', 'legacy']
-            }
-        };
+    const options = {
+        margin: [8, 8, 8, 8],
 
-        html2pdf()
+        filename: 'Muhammad-Rizal-Portfolio.pdf',
+
+        image: {
+            type: 'jpeg',
+            quality: 0.95
+        },
+
+        html2canvas: {
+            scale: 1.5,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: '#F7F4EB',
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: element.scrollWidth,
+            windowHeight: element.scrollHeight
+        },
+
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait',
+            compress: true
+        },
+
+        pagebreak: {
+            mode: ['css', 'legacy']
+        }
+    };
+
+    try {
+
+        await html2pdf()
             .set(options)
             .from(element)
             .save();
+
+    } catch (error) {
+
+        console.error(error);
+        alert('Gagal membuat PDF. Silakan coba lagi.');
+
+    } finally {
+
+        // Kembalikan header setelah PDF selesai
+        if (header) header.style.display = '';
+        if (mobileOverlay) mobileOverlay.style.display = '';
+
     }
+}
 </script>
 </body>
 </html>
